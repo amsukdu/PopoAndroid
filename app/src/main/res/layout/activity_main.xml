@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".MainActivity">
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </WebView>
+
+    <View
+        android:layout_width="400dp"
+        android:layout_height="match_parent"
+        android:background="@color/teal_200"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="parent">
+
+    </View>
+
+    <ImageView
+        android:id="@+id/neck_down_img"
+        android:layout_width="59dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="34dp"
+        android:src="@drawable/neckdown"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <ImageView
+        android:id="@+id/camera_down_img"
+        android:layout_width="90dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="11dp"
+        android:src="@drawable/cameradown"
+        app:layout_constraintBottom_toTopOf="@+id/neck_down_img"
+        app:layout_constraintEnd_toEndOf="@+id/neck_down_img"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/neck_down_img" />
+
+    <ImageView
+        android:id="@+id/camera_left_img"
+        android:layout_width="65dp"
+        android:layout_height="90dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/cameraleft"
+        app:layout_constraintBottom_toBottomOf="@+id/camera_down_img"
+        app:layout_constraintRight_toRightOf="@id/camera_down_img" />
+
+    <ImageView
+        android:id="@+id/camera_right_img"
+        android:layout_width="65dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/cameraright"
+        app:layout_constraintBottom_toBottomOf="@+id/camera_down_img"
+        app:layout_constraintLeft_toLeftOf="@id/camera_down_img" />
+
+    <ImageView
+        android:id="@+id/camera_up_img"
+        android:layout_width="90dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="0dp"
+        android:src="@drawable/cameraup"
+        app:layout_constraintBottom_toTopOf="@+id/camera_down_img"
+        app:layout_constraintLeft_toLeftOf="@id/camera_down_img" />
+
+    <ImageView
+        android:id="@+id/neck_up_img"
+        android:layout_width="59dp"
+        android:layout_height="29dp"
+        android:layout_marginBottom="147dp"
+        android:src="@drawable/neckup"
+        app:layout_constraintBottom_toTopOf="@+id/neck_down_img"
+        app:layout_constraintEnd_toEndOf="@+id/neck_down_img"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/neck_down_img" />
+
+    <ImageView
+        android:id="@+id/camera_img"
+        android:layout_width="61dp"
+        android:layout_height="61dp"
+        android:layout_marginBottom="44dp"
+        android:src="@drawable/cameraimg"
+        app:layout_constraintBottom_toTopOf="@+id/neck_down_img"
+        app:layout_constraintEnd_toEndOf="@+id/neck_down_img"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/neck_down_img" />
+
+
+    <ImageView
+        android:id="@+id/back_fast_img"
+        android:layout_width="59dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="110dp"
+        android:layout_marginBottom="21dp"
+        android:src="@drawable/backfast"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <ImageView
+        android:id="@+id/back_slow_img"
+        android:layout_width="113dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="11dp"
+        android:src="@drawable/backslow"
+        app:layout_constraintBottom_toTopOf="@+id/back_fast_img"
+        app:layout_constraintEnd_toEndOf="@+id/back_fast_img"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/back_fast_img" />
+
+    <ImageView
+        android:id="@+id/turn_left_img"
+        android:layout_width="80dp"
+        android:layout_height="113dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginBottom="24dp"
+        android:src="@drawable/turnleft"
+        app:layout_constraintBottom_toBottomOf="@+id/back_slow_img"
+        app:layout_constraintRight_toRightOf="@id/back_slow_img" />
+
+    <ImageView
+        android:id="@+id/turn_right_img"
+        android:layout_width="80dp"
+        android:layout_height="113dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginBottom="24dp"
+        android:src="@drawable/turnright"
+        app:layout_constraintBottom_toBottomOf="@+id/back_slow_img"
+        app:layout_constraintLeft_toLeftOf="@id/back_slow_img" />
+
+    <ImageView
+        android:id="@+id/go_slow_img"
+        android:layout_width="113dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="0dp"
+        android:src="@drawable/goslow"
+        app:layout_constraintBottom_toTopOf="@+id/back_slow_img"
+        app:layout_constraintLeft_toLeftOf="@id/back_slow_img" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
