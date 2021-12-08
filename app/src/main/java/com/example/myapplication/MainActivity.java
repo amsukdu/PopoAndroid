@@ -52,8 +52,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 //        });
         WebView myWebView = (WebView) findViewById(R.id.webview);
 //        myWebView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
-        myWebView.loadUrl("https://www.google.com");
-        myWebView.loadUrl("http://192.168.1.80:8090/stream");
+//        myWebView.loadUrl("https://www.google.com");
+        myWebView.loadUrl("http://192.168.1.80:8090/stream/video.h264");
+//        myWebView.loadUrl("file:///android_asset/popo-stream.html");
     }
 
     @Override
