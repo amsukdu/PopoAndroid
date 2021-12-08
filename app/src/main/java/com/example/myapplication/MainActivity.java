@@ -3,11 +3,16 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.ImageView;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements View.OnTouchListener {
     private GeaApi api = null;
@@ -15,8 +20,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         api = new GeaApi(getApplicationContext());
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
+        api.connect((b) -> {});
         setContentView(R.layout.activity_main);
         findViewById(R.id.neck_down_img).setOnTouchListener(this);
         findViewById(R.id.camera_down_img).setOnTouchListener(this);
@@ -29,32 +37,35 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         findViewById(R.id.turn_left_img).setOnTouchListener(this);
         findViewById(R.id.turn_right_img).setOnTouchListener(this);
         findViewById(R.id.go_slow_img).setOnTouchListener(this);
+        findViewById(R.id.go_fast_img).setOnTouchListener(this);
+        findViewById(R.id.right_handle_img).setOnTouchListener(this);
 
-//        api.heartBit((str) -> {
-//            Log.d("amsukdu", str);
-//        });
+        final Handler ha = new Handler();
+        ha.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                api.currentAppStatus((str) -> {
+                    Log.d("amsukdu", String.format("%s", str));
+                });
+                ha.postDelayed(this, 1000);
+            }
+        }, 1000);
 
-//        api.checkConnection((b) -> {
-//            Log.d("amsukdu", b.toString());
-//        });
-
-//        api.disconnect((b) -> {
-//            Log.d("amsukdu", b.toString());
-//        });
-//        api.popoAction(PopoActions.RAISE_NECK, (b) -> {
-//            Log.d("amsukdu", b.toString());
-//        });
-//        api.currentPopoAction((action) -> {
-//            Log.d("amsukdu", action.toString());
-//        });
-//        api.currentAppAction((str) -> {
-//            Log.d("amsukdu", str);
-//        });
         WebView myWebView = (WebView) findViewById(R.id.webview);
 //        myWebView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
 //        myWebView.loadUrl("https://www.google.com");
         myWebView.loadUrl("http://192.168.1.80:8090/stream/video.h264");
 //        myWebView.loadUrl("file:///android_asset/popo-stream.html");
+    }
+
+    public boolean isShowingRightDrawer() {
+        return findViewById(R.id.right_view).isShown();
+    }
+
+    public void setShowingRightDrawer(boolean show) {
+        ImageView img = findViewById(R.id.right_handle_img);
+        img.setImageResource(show ? R.drawable.righthandleclose : R.drawable.righthandleopen);
+        findViewById(R.id.right_view).setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -129,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             } else if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                 ImageView image = findViewById(R.id.neck_up_img);
                 image.setImageResource(R.drawable.neckupsel);
-                api.popoAction(PopoActions.CAM_UP, (b) -> {
+                api.popoAction(PopoActions.RAISE_NECK, (b) -> {
                 });
             }
         } else if (view == findViewById(R.id.back_fast_img)) {
@@ -191,6 +202,22 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 image.setImageResource(R.drawable.goslowsel);
                 api.popoAction(PopoActions.FORWARD_SLOW, (b) -> {
                 });
+            }
+        } else if (view == findViewById(R.id.go_fast_img)) {
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                ImageView image = findViewById(R.id.go_fast_img);
+                image.setImageResource(R.drawable.gofast);
+                api.popoAction(PopoActions.STOP_ALL, (b) -> {
+                });
+            } else if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                ImageView image = findViewById(R.id.go_fast_img);
+                image.setImageResource(R.drawable.gofastsel);
+                api.popoAction(PopoActions.FORWARD_FAST, (b) -> {
+                });
+            }
+        } else if (view == findViewById(R.id.right_handle_img)) {
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                setShowingRightDrawer(!isShowingRightDrawer());
             }
         }
         return true;

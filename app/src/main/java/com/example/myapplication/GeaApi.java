@@ -71,7 +71,11 @@ enum PopoActions {
 }
 
 enum AppActions {
-    WASHER_START("washerStart");
+    OVEN_START("ovenStart"),
+    OVEN_STOP("ovenStop"),
+    WASHER_START("washerStart"),
+    WASHER_STOP("washerStop");
+
     private final String text;
     AppActions(final String text) {
         this.text = text;
@@ -111,7 +115,7 @@ public class GeaApi {
     }
 
     public void heartBit(GeaApiResultString callback) {
-        String url = "http://geakorea.codns.com:3333/popo/";
+        String url = "http://52.78.156.233:3333/popo/";
         StringRequest request = new StringRequest(Request.Method.GET, url, (str) -> {
             callback.onSuccess(str);
         } , null);
@@ -119,7 +123,7 @@ public class GeaApi {
     }
 
     public void checkConnection(GeaApiResultBoolean callback) {
-        String url = "http://geakorea.codns.com:3333/popo/cloud";
+        String url = "http://52.78.156.233:3333/popo/cloud";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, (response) -> {
             try {
                 boolean b = response.getBoolean("connection");
@@ -130,7 +134,7 @@ public class GeaApi {
     }
 
     public void connect(GeaApiResultBoolean callback) {
-        String url = "http://geakorea.codns.com:3333/popo/cloud/connect";
+        String url = "http://52.78.156.233:3333/popo/cloud/connect";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, null, (response) -> {
             try {
                 boolean b = response.getBoolean("success");
@@ -143,7 +147,7 @@ public class GeaApi {
     }
 
     public void disconnect(GeaApiResultBoolean callback) {
-        String url = "http://geakorea.codns.com:3333/popo/cloud/disconnect";
+        String url = "http://52.78.156.233:3333/popo/cloud/disconnect";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, null, (response) -> {
             try {
                 boolean b = response.getBoolean("success");
@@ -157,7 +161,7 @@ public class GeaApi {
 
     public void popoAction(PopoActions action, GeaApiResultBoolean callback) {
         String jsonString = String.format("{\"kind\": \"popo#action\", \"action\": \"%s\"}",action.toString());
-        String url = "http://geakorea.codns.com:3333/popo/send";
+        String url = "http://52.78.156.233:3333/popo/send";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, null, (response) -> {
             try {
                 boolean b = response.getBoolean("success");
@@ -180,7 +184,7 @@ public class GeaApi {
     }
 
     public void currentPopoAction(GeaApiResultPopoAction callback) {
-        String url = "http://geakorea.codns.com:3333/popo/get/action";
+        String url = "http://52.78.156.233:3333/popo/get/action";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, (response) -> {
             try {
                 String str = response.getString("message");
@@ -194,7 +198,7 @@ public class GeaApi {
 
     public void appAction(AppActions action, GeaApiResultBoolean callback) {
         String jsonString = String.format("{\"kind\": \"popo#operation\", \"action\": \"%s\"}",action.toString());
-        String url = "http://geakorea.codns.com:3333/popo/send";
+        String url = "http://52.78.156.233:3333/popo/send";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, null, (response) -> {
             try {
                 boolean b = response.getBoolean("success");
@@ -216,14 +220,14 @@ public class GeaApi {
         getQueue().add(request);
     }
 
-    public void currentAppAction(GeaApiResultString callback) {
-        String url = "http://geakorea.codns.com:3333/popo/get/status";
+    public void currentAppStatus(GeaApiResultString callback) {
+        String url = "http://52.78.156.233:3333/popo/get/status";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, (response) -> {
             try {
                 String str = response.getString("message");
                 callback.onSuccess(str);
             } catch (JSONException e) {
-
+                callback.onSuccess(null);
             }
         }, null);
         getQueue().add(request);
