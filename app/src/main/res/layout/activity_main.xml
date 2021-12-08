@@ -14,18 +14,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </WebView>
-
-    <View
-        android:layout_width="400dp"
-        android:layout_height="match_parent"
-        android:background="@color/teal_200"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="parent">
-
-    </View>
+        app:layout_constraintTop_toTopOf="parent"></WebView>
 
     <ImageView
         android:id="@+id/neck_down_img"
@@ -152,5 +141,396 @@
         app:layout_constraintBottom_toTopOf="@+id/back_slow_img"
         app:layout_constraintLeft_toLeftOf="@id/back_slow_img" />
 
+    <ImageView
+        android:id="@+id/go_fast_img"
+        android:layout_width="56dp"
+        android:layout_height="22dp"
+        android:layout_marginBottom="14dp"
+        android:src="@drawable/gofast"
+        app:layout_constraintBottom_toTopOf="@+id/go_slow_img"
+        app:layout_constraintEnd_toEndOf="@+id/back_fast_img"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/back_fast_img" />
+
+    <ImageView
+        android:id="@+id/white_circle"
+        android:layout_width="81dp"
+        android:layout_height="81dp"
+        android:layout_marginBottom="54dp"
+        android:src="@drawable/whitecircle"
+        app:layout_constraintBottom_toTopOf="@+id/back_fast_img"
+        app:layout_constraintEnd_toEndOf="@+id/back_fast_img"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/back_fast_img" />
+
+    <ImageView
+        android:id="@+id/right_handle_img"
+        android:layout_width="28dp"
+        android:layout_height="94dp"
+        android:src="@drawable/righthandleopen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/right_view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <ImageView
+        android:layout_width="65dp"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/rightviewshadow"
+        app:layout_constraintRight_toLeftOf="@+id/right_view" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/right_view"
+        android:layout_width="291dp"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black" />
+
+        <ImageView
+            android:id="@+id/gea_title_img"
+            android:layout_width="150dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="28dp"
+            android:src="@drawable/geatitle"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/oven_big_img"
+            android:layout_width="231dp"
+            android:layout_height="71dp"
+            android:layout_marginTop="29dp"
+            android:src="@drawable/ovenbigbutton"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gea_title_img" />
+
+        <ImageView
+            android:id="@+id/fridge_big_img"
+            android:layout_width="231dp"
+            android:layout_height="71dp"
+            android:layout_marginTop="29dp"
+            android:src="@drawable/fridgebigbutton"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/oven_big_img" />
+
+        <ImageView
+            android:id="@+id/washer_big_img"
+            android:layout_width="231dp"
+            android:layout_height="71dp"
+            android:layout_marginTop="29dp"
+            android:src="@drawable/washerbigbutton"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fridge_big_img" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/right_view_oven_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black" />
+
+            <ImageView
+                android:id="@+id/right_view_oven_view_left_arrow"
+                android:layout_width="9dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="25sp"
+                android:src="@drawable/leftarrow"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/right_view_oven_view_title_icon"
+                android:layout_width="20dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="36dp"
+                android:src="@drawable/ovenicon"
+                app:layout_constraintBottom_toBottomOf="@+id/right_view_oven_view_left_arrow"
+                app:layout_constraintLeft_toRightOf="@+id/right_view_oven_view_left_arrow"
+                app:layout_constraintTop_toTopOf="@+id/right_view_oven_view_left_arrow" />
+
+            <ImageView
+                android:id="@+id/right_view_oven_view_title"
+                android:layout_width="124dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="12dp"
+                android:src="@drawable/oventext"
+                app:layout_constraintBottom_toBottomOf="@+id/right_view_oven_view_left_arrow"
+                app:layout_constraintLeft_toRightOf="@+id/right_view_oven_view_title_icon"
+                app:layout_constraintTop_toTopOf="@+id/right_view_oven_view_left_arrow" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="90dp"
+                android:src="@drawable/oventextcontrol"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="281dp"
+                android:layout_height="148dp"
+                android:layout_marginTop="115dp"
+                android:src="@drawable/ovenbigimgbutton"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/right_view_fridge_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black" />
+
+            <ImageView
+                android:id="@+id/right_view_fridge_view_left_arrow"
+                android:layout_width="9dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="25sp"
+                android:src="@drawable/leftarrow"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/right_view_fridge_view_title_icon"
+                android:layout_width="15dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="43dp"
+                android:src="@drawable/fridgeicon"
+                app:layout_constraintBottom_toBottomOf="@+id/right_view_fridge_view_left_arrow"
+                app:layout_constraintLeft_toRightOf="@+id/right_view_fridge_view_left_arrow"
+                app:layout_constraintTop_toTopOf="@+id/right_view_fridge_view_left_arrow" />
+
+            <ImageView
+                android:id="@+id/right_view_fidge_view_title"
+                android:layout_width="124dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/refridgetitle"
+                app:layout_constraintBottom_toBottomOf="@+id/right_view_fridge_view_title_icon"
+                app:layout_constraintLeft_toRightOf="@+id/right_view_fridge_view_title_icon"
+                app:layout_constraintTop_toTopOf="@+id/right_view_fridge_view_title_icon" />
+
+            <ImageView
+                android:layout_width="108dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="68dp"
+                android:src="@drawable/fridgetextmodel"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/fridge_big"
+                android:layout_width="117dp"
+                android:layout_height="191dp"
+                android:layout_marginTop="98dp"
+                android:src="@drawable/firdgebig"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/fridge_big_up_left"
+                android:layout_width="58dp"
+                android:layout_height="98dp"
+                android:src="@drawable/fridgeleftup"
+                app:layout_constraintLeft_toLeftOf="@+id/fridge_big"
+                app:layout_constraintTop_toTopOf="@+id/fridge_big" />
+
+            <ImageView
+                android:id="@+id/fridge_big_up_right"
+                android:layout_width="58dp"
+                android:layout_height="98dp"
+                android:src="@drawable/fridgeupright"
+                app:layout_constraintRight_toRightOf="@+id/fridge_big"
+                app:layout_constraintTop_toTopOf="@+id/fridge_big" />
+
+            <ImageView
+                android:id="@+id/fridge_big_middle"
+                android:layout_width="116dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="98dp"
+                android:src="@drawable/fridgemiddle"
+                app:layout_constraintLeft_toLeftOf="@+id/fridge_big"
+                app:layout_constraintTop_toTopOf="@+id/fridge_big" />
+
+            <ImageView
+                android:id="@+id/fridge_big_bottom"
+                android:layout_width="116dp"
+                android:layout_height="58dp"
+                android:src="@drawable/fridgebottom"
+                app:layout_constraintBottom_toBottomOf="@+id/fridge_big"
+                app:layout_constraintLeft_toLeftOf="@+id/fridge_big" />
+
+
+            <ImageView
+                android:layout_width="242dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="314dp"
+                android:src="@drawable/fridgewarning"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/right_view_washer_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black" />
+
+            <ImageView
+                android:id="@+id/right_view_washer_view_left_arrow"
+                android:layout_width="9dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="25sp"
+                android:src="@drawable/leftarrow"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/right_view_washer_view_title_icon"
+                android:layout_width="19dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="43dp"
+                android:src="@drawable/washericon"
+                app:layout_constraintBottom_toBottomOf="@+id/right_view_washer_view_left_arrow"
+                app:layout_constraintLeft_toRightOf="@+id/right_view_washer_view_left_arrow"
+                app:layout_constraintTop_toTopOf="@+id/right_view_washer_view_left_arrow" />
+
+            <ImageView
+                android:id="@+id/right_view_washer_view_title"
+                android:layout_width="72dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="12dp"
+                android:src="@drawable/washertitle"
+                app:layout_constraintBottom_toBottomOf="@+id/right_view_washer_view_title_icon"
+                app:layout_constraintLeft_toRightOf="@+id/right_view_washer_view_title_icon"
+                app:layout_constraintTop_toTopOf="@+id/right_view_washer_view_title_icon" />
+
+            <ImageView
+                android:layout_width="27dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="61dp"
+                android:src="@drawable/washertexttime"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/right_view_washer_view_time_bg"
+                android:layout_width="165dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="61dp"
+                android:layout_marginTop="86dp"
+                android:src="@drawable/washertimebg"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/right_view_washer_view_time_first"
+                android:layout_width="24dp"
+                android:layout_height="47dp"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="9dp"
+                android:src="@drawable/number1"
+                app:layout_constraintLeft_toLeftOf="@+id/right_view_washer_view_time_bg"
+                app:layout_constraintTop_toTopOf="@+id/right_view_washer_view_time_bg" />
+
+            <ImageView
+                android:id="@+id/right_view_washer_view_time_second"
+                android:layout_width="24dp"
+                android:layout_height="47dp"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="9dp"
+                android:src="@drawable/number2"
+                app:layout_constraintLeft_toLeftOf="@+id/right_view_washer_view_time_bg"
+                app:layout_constraintTop_toTopOf="@+id/right_view_washer_view_time_bg" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="47dp"
+                android:layout_marginStart="71dp"
+                android:layout_marginTop="9dp"
+                android:src="@drawable/numbercolon"
+                app:layout_constraintLeft_toLeftOf="@+id/right_view_washer_view_time_bg"
+                app:layout_constraintTop_toTopOf="@+id/right_view_washer_view_time_bg" />
+
+            <ImageView
+                android:id="@+id/right_view_washer_view_time_third"
+                android:layout_width="24dp"
+                android:layout_height="47dp"
+                android:layout_marginStart="96dp"
+                android:layout_marginTop="9dp"
+                android:src="@drawable/number3"
+                app:layout_constraintLeft_toLeftOf="@+id/right_view_washer_view_time_bg"
+                app:layout_constraintTop_toTopOf="@+id/right_view_washer_view_time_bg" />
+
+            <ImageView
+                android:id="@+id/right_view_washer_view_time_fourth"
+                android:layout_width="24dp"
+                android:layout_height="47dp"
+                android:layout_marginStart="121dp"
+                android:layout_marginTop="9dp"
+                android:src="@drawable/number4"
+                app:layout_constraintLeft_toLeftOf="@+id/right_view_washer_view_time_bg"
+                app:layout_constraintTop_toTopOf="@+id/right_view_washer_view_time_bg" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="167dp"
+                android:src="@drawable/oventextcontrol"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="77dp"
+                android:layout_height="154dp"
+                android:layout_marginTop="192dp"
+                android:src="@drawable/washerpower"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
