@@ -19,21 +19,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-//enum Action: String {
-//        case stopAll = "stopAll"
-//        case forwardSlow = "forwardSlow"
-//        case forwardFast = "forwardFast"
-//        case backwardSlow = "backwardSlow"
-//        case backwardFast = "backwardFast"
-//        case turnLeft = "turnLeft"
-//        case turnRight = "turnRight"
-//        case raiseNeck = "raiseNeck"
-//        case lowerNeck = "lowerNeck"
-//        case camUp = "camUp"
-//        case camDown = "camDown"
-//        case camLeft = "camLeft"
-//        case camRight = "camRight"
-//        }
 enum PopoActions {
     STOP_ALL("stopAll"),
     FORWARD_SLOW("forwardSlow"),
@@ -197,7 +182,7 @@ public class GeaApi {
     }
 
     public void appAction(AppActions action, GeaApiResultBoolean callback) {
-        String jsonString = String.format("{\"kind\": \"popo#operation\", \"action\": \"%s\"}",action.toString());
+        String jsonString = String.format("{\"kind\": \"popo#operation\", \"operation\": \"%s\"}",action.toString());
         String url = "http://52.78.156.233:3333/popo/send";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, null, (response) -> {
             try {
