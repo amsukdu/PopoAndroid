@@ -1,5 +1,9 @@
 package com.example.myapplication;
 
+import static android.Manifest.permission.INTERNET;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.RECORD_AUDIO;
+
 import android.Manifest;
 import android.app.Notification;
 import android.content.Intent;
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
     private GeaApi api = null;
     private Vibrator haptic = null;
+    private AzureSpeech azureSpeech = new AzureSpeech();
 
     public String getFridgeStatus() {
         return fridgeStatus;
@@ -165,12 +170,25 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 //            });
 //        });
 
+        azureSpeech.initialize(this);
+        // Initialize SpeechSDK and request required permissions.
+        try {
+            // a unique number within the application to allow
+            // correlating permission request responses with the request.
+            int permissionRequestId = 5;
 
+            // Request permissions needed for speech recognition
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{RECORD_AUDIO, INTERNET, READ_EXTERNAL_STORAGE}, permissionRequestId);
+        }
+        catch(Exception ex) {
+            Log.e("SpeechSDK", "could not init sdk, " + ex.toString());
+//            recognizedTextView.setText("Could not initialize: " + ex.toString());
+        }
 
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
-            checkPermission();
-        }
+//        if(ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
+//            checkPermission();
+//        }
         speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.ENGLISH);
@@ -209,12 +227,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             public void onResults(Bundle bundle) {
                 ArrayList<String> data = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                 String str = data.toString();
-                Log.d("amsukdu", str);
-//                if(str.equals("watch on") || str.equals("wash on") || str.equals("washer on")) {
-//                    api.appAction(AppActions.WASHER_START, (b) -> {});
-//                } else if(str.equals("watch off") || str.equals("wash off") || str.equals("washer off")) {
-//                    api.appAction(AppActions.WASHER_STOP, (b) -> {});
-//                } if(str.equals(""))
+                doSomething(str);
             }
 
             @Override
@@ -284,6 +297,14 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         myWebView.loadUrl("http://192.168.1.80:8090/stream/video.mjpeg");
     }
 
+    private void doSomething(String str) {
+        Log.d("amsukdu", str);
+//                if(str.equals("watch on") || str.equals("wash on") || str.equals("washer on")) {
+//                    api.appAction(AppActions.WASHER_START, (b) -> {});
+//                } else if(str.equals("watch off") || str.equals("wash off") || str.equals("washer off")) {
+//                    api.appAction(AppActions.WASHER_STOP, (b) -> {});
+//                } if(str.equals(""))
+    }
     public boolean isShowingRightDrawer() {
         return findViewById(R.id.right_view).isShown();
     }
@@ -510,14 +531,34 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 api.appAction(AppActions.WASHER_START, (b) -> {
                 });
             }
+//        } else if(view == findViewById(R.id.mic_img)) {
+//            if (motionEvent.getAction() == MotionEvent.ACTION_UP){
+//                speechRecognizer.stopListening();
+//            } else if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+////                micButton.setImageResource(R.drawable.ic_mic_black_24dp);
+//                speechRecognizer.startListening(speechRecognizerIntent);
+//            }
+//        }
         } else if(view == findViewById(R.id.mic_img)) {
             if (motionEvent.getAction() == MotionEvent.ACTION_UP){
-                speechRecognizer.stopListening();
+                view.setEnabled(false);
+        azureSpeech.recognize(new AzureSpeech.OnRecognitionCompletedListener() {
+            @Override
+            public void onCompleted(String s, Exception ex) {
+                view.setEnabled(true);
+                if (s != null) {
+                    doSomething(s);
+                } else {
+
+                }
+            }
+        });
             } else if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
 //                micButton.setImageResource(R.drawable.ic_mic_black_24dp);
-                speechRecognizer.startListening(speechRecognizerIntent);
+//                speechRecognizer.startListening(speechRecognizerIntent);
             }
         }
+
         return true;
     }
 }
