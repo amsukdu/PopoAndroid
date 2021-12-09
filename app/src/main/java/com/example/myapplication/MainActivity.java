@@ -153,8 +153,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return;
         }
-        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.RECORD_AUDIO},RecordAudioRequestCode);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, RecordAudioRequestCode);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -179,8 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
             // Request permissions needed for speech recognition
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{RECORD_AUDIO, INTERNET, READ_EXTERNAL_STORAGE}, permissionRequestId);
-        }
-        catch(Exception ex) {
+        } catch (Exception ex) {
             Log.e("SpeechSDK", "could not init sdk, " + ex.toString());
 //            recognizedTextView.setText("Could not initialize: " + ex.toString());
         }
@@ -227,7 +227,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             public void onResults(Bundle bundle) {
                 ArrayList<String> data = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                 String str = data.toString();
-                doSomething(str);
             }
 
             @Override
@@ -268,43 +267,35 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         findViewById(R.id.washer_power_on).setOnTouchListener(this);
 
         final Handler ha = new Handler();
-        ha.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                api.currentAppStatus((str) -> {
-                    Log.d("amsukdu", String.format("%s", str));
-
-                    if (str == null) {
-                        return;
-                    }
-                    try {
-                        JSONObject json = new JSONObject(str);
-                        String status = json.getString("status");
-                        String type = json.getString("kind").split("#")[1];
-                        if (type.equals("fridgestatus")) {
-                            setFridgeStatus(status);
-                        } else if (type.equals("washerstatus")) {
-                            setWasherMinute(status);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                });
-                ha.postDelayed(this, 500);
-            }
-        }, 500);
+//        ha.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                api.currentAppStatus((str) -> {
+//                    Log.d("amsukdu", String.format("%s", str));
+//
+//                    if (str == null) {
+//                        return;
+//                    }
+//                    try {
+//                        JSONObject json = new JSONObject(str);
+//                        String status = json.getString("status");
+//                        String type = json.getString("kind").split("#")[1];
+//                        if (type.equals("fridgestatus")) {
+//                            setFridgeStatus(status);
+//                        } else if (type.equals("washerstatus")) {
+//                            setWasherMinute(status);
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                });
+//                ha.postDelayed(this, 500);
+//            }
+//        }, 500);
         WebView myWebView = (WebView) findViewById(R.id.webview);
         myWebView.loadUrl("http://192.168.1.80:8090/stream/video.mjpeg");
     }
 
-    private void doSomething(String str) {
-        Log.d("amsukdu", str);
-//                if(str.equals("watch on") || str.equals("wash on") || str.equals("washer on")) {
-//                    api.appAction(AppActions.WASHER_START, (b) -> {});
-//                } else if(str.equals("watch off") || str.equals("wash off") || str.equals("washer off")) {
-//                    api.appAction(AppActions.WASHER_STOP, (b) -> {});
-//                } if(str.equals(""))
-    }
     public boolean isShowingRightDrawer() {
         return findViewById(R.id.right_view).isShown();
     }
@@ -506,8 +497,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             }
         } else if (view == findViewById(R.id.refresh_img)) {
             if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-//                WebView myWebView = (WebView) findViewById(R.id.webview);
-//                myWebView.reload();
+                WebView myWebView = (WebView) findViewById(R.id.webview);
+                myWebView.reload();
             }
         } else if (view == findViewById(R.id.oven_power_off)) {
             if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
@@ -531,31 +522,24 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 api.appAction(AppActions.WASHER_START, (b) -> {
                 });
             }
-//        } else if(view == findViewById(R.id.mic_img)) {
-//            if (motionEvent.getAction() == MotionEvent.ACTION_UP){
-//                speechRecognizer.stopListening();
-//            } else if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
-////                micButton.setImageResource(R.drawable.ic_mic_black_24dp);
-//                speechRecognizer.startListening(speechRecognizerIntent);
-//            }
-//        }
-        } else if(view == findViewById(R.id.mic_img)) {
-            if (motionEvent.getAction() == MotionEvent.ACTION_UP){
+        } else if (view == findViewById(R.id.mic_img)) {
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                ImageView image = findViewById(R.id.mic_img);
+                image.setImageResource(R.drawable.mic);
                 view.setEnabled(false);
-        azureSpeech.recognize(new AzureSpeech.OnRecognitionCompletedListener() {
-            @Override
-            public void onCompleted(String s, Exception ex) {
-                view.setEnabled(true);
-                if (s != null) {
-                    doSomething(s);
-                } else {
-
-                }
-            }
-        });
-            } else if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
-//                micButton.setImageResource(R.drawable.ic_mic_black_24dp);
-//                speechRecognizer.startListening(speechRecognizerIntent);
+                azureSpeech.recognize(new AzureSpeech.OnRecognitionCompletedListener() {
+                    @Override
+                    public void onCompleted(String s, Exception ex) {
+                        image.setImageResource(R.drawable.micnorm);
+                        view.setEnabled(true);
+                        if(s == null || s.isEmpty()) { return; }
+                        if(s.toLowerCase().contains("cooking")) {
+                            api.appAction(AppActions.OVEN_STOP, (b) -> {});
+                        } else if(s.toLowerCase().contains("washing") || s.toLowerCase().contains("watching")) {
+                            api.appAction(AppActions.WASHER_STOP, (b) -> {});
+                        }
+                    }
+                });
             }
         }
 
